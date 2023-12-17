@@ -1,0 +1,38 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>one.platform.plugin.PlatformNote</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>PlatformNote</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="support@one.com" url="https://www.one.com">one</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Simple HTML elements (text formatting, paragraphs, and lists) can be added
+    Simple HTML elements (text formatting, paragraphs, and lists) can be added
+    Simple HTML elements (text formatting, paragraphs, and lists) can be added
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+        <toolWindow id="NoteTool"
+                    canCloseContents="true"
+                    secondary="true"
+                    icon="AllIcons.Toolwindows.WebToolWindow"
+                    anchor="right"
+                    largeStripeAnchor="top"
+                    factoryClass="one.platform.plugin.NoteToolWindow"/>
+    </extensions>
+</idea-plugin>
