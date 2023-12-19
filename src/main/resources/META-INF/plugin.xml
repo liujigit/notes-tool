@@ -28,11 +28,16 @@
     <extensions defaultExtensionNs="com.intellij">
 
         <toolWindow id="NoteTool"
-                    canCloseContents="true"
+                    canCloseContents="false"
                     secondary="true"
                     icon="AllIcons.Toolwindows.WebToolWindow"
                     anchor="right"
                     largeStripeAnchor="top"
                     factoryClass="one.platform.plugin.NoteToolWindow"/>
     </extensions>
+
+    <applicationListeners>
+        <listener class="one.platform.plugin.listeners.NoteProjectViewSelectionListener" topic="com.intellij.ide.projectView.ProjectViewSelectionListener"/>
+    </applicationListeners>
+
 </idea-plugin>

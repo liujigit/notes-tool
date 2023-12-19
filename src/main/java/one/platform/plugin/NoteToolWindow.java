@@ -6,7 +6,12 @@ import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
+import one.platform.plugin.actions.CreateNoteTabAction;
+import one.platform.plugin.actions.NoteSaveAction;
 import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * @author liuji
@@ -17,11 +22,13 @@ public class NoteToolWindow implements ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
 
-        NotePane notePane = new NotePane(project);
+        NotePane notePane = NotePane.getInstance(project);
         ContentFactory contentFactory = ContentFactory.getInstance();
         Content note = contentFactory.createContent(notePane, "Note", true);
         ContentManager contentManager = toolWindow.getContentManager();
 
         contentManager.addContent(note);
+
+        toolWindow.setTitleActions(Arrays.asList(new CreateNoteTabAction(),new NoteSaveAction()));
     }
 }
