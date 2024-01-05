@@ -18,10 +18,11 @@
         Add and delete tab pages. Save data <br>
         <br>
         Future support: <br>
-        ①, more friendly interaction <br>
-        ②, support url jump <br>
-        ③, support url preview <br>
-        Etc. <br>
+            ①, more friendly interaction <br>
+            ②, support url jump <br>
+            ③, support url preview <br>
+            ④, support to change the tab name <br>
+            Etc. <br>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
