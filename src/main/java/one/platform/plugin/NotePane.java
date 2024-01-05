@@ -43,13 +43,13 @@ public class NotePane extends JBTabbedPane {
     private NotePane(Project project) {
         super(SwingConstants.TOP,JTabbedPane.WRAP_TAB_LAYOUT);
         try {
-            this.initTabs();
+            this.initTabs(project);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void initTabs(){
+    private void initTabs(Project project){
         NoteConfig config = NoteState.getInstance().getConfig();
         List<NoteItemConfig> tabs = config.getTabs();
         if(CollectionUtils.isEmpty(tabs)){
@@ -60,7 +60,7 @@ public class NotePane extends JBTabbedPane {
                 .collect(Collectors.toList());
         NoteView noteView;
         for (NoteItemConfig tab : list) {
-            noteView = new NoteView(tab.getContent());
+            noteView = new NoteView(project,tab.getContent());
             this.addTabView(tab.getName(),noteView);
 
             if(tab.isCur()) {

@@ -14,7 +14,9 @@ public class NoteIcons {
     public static final Icon  NOTE_ICON = IconManager.getInstance().getIcon("META-INF/pluginIcon.svg",NoteIcons.class);
 
 
-    public static final Icon  ADD_TAB_ICON = AllIcons.FileTypes.AddAny;
+    public static final Icon  ADD_TAB_ICON = AllIcons.General.Add;
+
+    public static final Icon  REMOVE_TAB_ICON = AllIcons.General.Remove;
 
 
     public static final Icon  SAVE_ICON = AllIcons.Actions.MenuSaveall;

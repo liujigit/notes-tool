@@ -1,5 +1,7 @@
 package one.platform.plugin;
 
+import com.intellij.find.SearchReplaceComponent;
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.tabs.impl.JBTabsImpl;
@@ -18,13 +20,18 @@ public class NoteView extends JBScrollPane {
     private final JBTextArea textArea;
 
     public NoteView() {
-        this(null);
+        this(null,null);
     }
 
-    public NoteView(List<String> lines) {
+    public NoteView(Project project,List<String> lines) {
         super();
         textArea = new JBTextArea();
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        this.setViewportView(textArea);
         this.loadData(lines);
+
+//        SearchReplaceComponent component = SearchReplaceComponent.buildFor(project,this).build();
     }
 
     private Document init(){
