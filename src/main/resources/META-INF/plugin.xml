@@ -23,6 +23,17 @@
             ③, support url preview <br>
             ④, support to change the tab name <br>
             Etc. <br>
+
+        idea 插件 -- 日记本<br>
+        支持增加、删除tab页；保存数据<br>
+        <br>
+        未来支持：<br>
+            ①、交互更加友好<br>
+            ②、支持url跳转<br>
+            ③、支持url预览<br>
+            ④、支持修改tab名称<br>
+            ⑤、默认定位右上角
+            等等<br>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
