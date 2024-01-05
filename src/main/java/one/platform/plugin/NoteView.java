@@ -1,5 +1,6 @@
 package one.platform.plugin;
 
+import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.tabs.impl.JBTabsImpl;
 import org.apache.commons.collections.CollectionUtils;
@@ -12,7 +13,9 @@ import java.util.List;
  * @author liuji
  * @date 2023/12/17 21:41
  **/
-public class NoteView extends JBTextArea {
+public class NoteView extends JBScrollPane {
+
+    private final JBTextArea textArea;
 
     public NoteView() {
         this(null);
@@ -20,6 +23,7 @@ public class NoteView extends JBTextArea {
 
     public NoteView(List<String> lines) {
         super();
+        textArea = new JBTextArea();
         this.loadData(lines);
     }
 
@@ -33,8 +37,12 @@ public class NoteView extends JBTextArea {
             return;
         }
         for (String line : lines) {
-            this.append(line);
-            this.append("\r\n");
+            textArea.append(line);
+            textArea.append("\r\n");
         }
+    }
+
+    public String getText() {
+        return textArea.getText();
     }
 }

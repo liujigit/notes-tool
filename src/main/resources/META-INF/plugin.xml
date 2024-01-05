@@ -36,8 +36,4 @@
                     factoryClass="one.platform.plugin.NoteToolWindow"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="one.platform.plugin.listeners.NoteProjectViewSelectionListener" topic="com.intellij.ide.projectView.ProjectViewSelectionListener"/>
-    </applicationListeners>
-
 </idea-plugin>

@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.util.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -56,7 +57,7 @@ public class NotePane extends JBTabbedPane {
         }
         List<NoteItemConfig> list = tabs.stream()
                 .sorted(Comparator.comparing(NoteItemConfig::getIndex))
-                .toList();
+                .collect(Collectors.toList());
         NoteView noteView;
         for (NoteItemConfig tab : list) {
             noteView = new NoteView(tab.getContent());
@@ -89,7 +90,7 @@ public class NotePane extends JBTabbedPane {
                     config.setCur(Objects.equals(selectedIndex,i));
                     config.setContent(Collections.singletonList(this.getTabView(i).getText()));
                     return config;
-                }).toList();
+                }).collect(Collectors.toList());
     }
 
     public int getTabSize(){

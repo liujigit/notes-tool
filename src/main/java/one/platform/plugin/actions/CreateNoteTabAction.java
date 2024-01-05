@@ -4,6 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import one.platform.plugin.NotePane;
 import one.platform.plugin.NoteView;
+import one.platform.plugin.config.NoteIcons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -11,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
  * @date 2023/12/18 22:23
  **/
 public class CreateNoteTabAction extends AnAction {
+
+    public CreateNoteTabAction() {
+        super(NoteIcons.ADD_TAB_ICON);
+    }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent action) {
