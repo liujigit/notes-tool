@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class CreateNoteTabAction extends AnAction {
 
     public CreateNoteTabAction() {
-        super(NoteIcons.ADD_TAB_ICON);
+        super("Create","Create",NoteIcons.ADD_TAB_ICON);
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.util.List;
 public class NoteSaveAction extends AnAction {
 
     public NoteSaveAction() {
-        super(NoteIcons.SAVE_ICON);
+        super("Save","Save",NoteIcons.SAVE_ICON);
     }
 
     @Override
