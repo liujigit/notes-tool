@@ -16,7 +16,7 @@ import java.awt.*;
 public class RemoveNoteTabAction extends AnAction {
 
     public RemoveNoteTabAction() {
-        super(NoteIcons.REMOVE_TAB_ICON);
+        super("Remove","Remove",NoteIcons.REMOVE_TAB_ICON);
     }
 
     @Override
