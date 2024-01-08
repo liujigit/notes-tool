@@ -43,14 +43,9 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
-        <toolWindow id="NoteTool"
-                    canCloseContents="false"
-                    secondary="true"
-                    icon="one.platform.plugin.config.NoteIcons.NOTE_ICON"
-                    anchor="right"
-                    largeStripeAnchor="top"
-                    factoryClass="one.platform.plugin.NoteToolWindow"/>
+        <postStartupActivity implementation="one.platform.plugin.NoteApplication"/>
+        <backgroundPostStartupActivity implementation="one.platform.plugin.NoteApplication"/>
     </extensions>
+
 
 </idea-plugin>
