@@ -9,6 +9,8 @@ import one.platform.plugin.config.NoteState;
 import org.apache.commons.collections.CollectionUtils;
 
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.util.*;
 
 import java.util.List;
@@ -47,6 +49,21 @@ public class NotePane extends JBTabbedPane {
         } catch (Exception e){
             e.printStackTrace();
         }
+        this.addAncestorListener(new AncestorListener() {
+            public void ancestorAdded(AncestorEvent event) {
+            }
+
+            public void ancestorRemoved(AncestorEvent event) {
+                NotePane notePane = NotePane.getInstance(null);
+                List<NoteItemConfig> itemConfigs = notePane.getTabConfigs();
+                NoteState instance = NoteState.getInstance();
+                instance.setConfig(new NoteConfig(itemConfigs));
+                instance.loadState(instance);
+            }
+
+            public void ancestorMoved(AncestorEvent event) {
+            }
+        });
     }
 
     private void initTabs(Project project){

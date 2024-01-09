@@ -50,6 +50,8 @@
                     icon="one.platform.plugin.config.NoteIcons.NOTE_ICON"
                     anchor="right"
                     largeStripeAnchor="top"
+                    doNotActivateOnStart="false"
+                    order="first"
                     factoryClass="one.platform.plugin.NoteToolWindow"/>
     </extensions>
 
