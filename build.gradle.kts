@@ -8,12 +8,18 @@ group = "one.platform.plugin"
 version = "1.0"
 
 repositories {
+    maven {url = uri("https://maven.aliyun.com/repository/central/")}
+    maven {url = uri("https://maven.aliyun.com/repository/public/")}
+    maven {url = uri("https://maven.aliyun.com/repository/google/")}
+    maven {url = uri("https://maven.aliyun.com/repository/jcenter/")}
+    maven {url = uri("https://maven.aliyun.com/repository/gradle-plugin")}
+    google()
     mavenCentral()
-//    maven {"https://maven.aliyun.com/repository/central/"}
-//    maven {"https://maven.aliyun.com/repository/public/"}
-//    maven {"https://maven.aliyun.com/repository/google/"}
-//    maven {"https://maven.aliyun.com/repository/jcenter/"}
-//    maven {"https://maven.aliyun.com/repository/gradle-plugin"}
+
+}
+
+dependencies {
+    implementation("org.jdom:jdom:1.1.3")
 }
 
 // Configure Gradle IntelliJ Plugin

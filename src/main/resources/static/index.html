@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>sdk issues</title>
+    <style>
+
+        html,body, #vditor {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+        }
+        #vditor {
+            width: 100%;
+            height: 100%;
+            margin-top: 0rem;
+        }
+        .vditor-reset {
+            border: 1px solid #efefef;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/vditor@3.9.8/dist/index.css" />
+    <script src="https://unpkg.com/vditor@3.9.8/dist/index.min.js"></script>
+</head>
+<body>
+<div id="vditor"></div>
+<script>
+    let toolbar = [
+        'headings' , 'bold'
+    ]
+    function getId(){
+        var urlSearchParams = new URLSearchParams(window.location.search);
+        var id = urlSearchParams.get('id');
+        return id ? id : -1;
+    }
+    var vditor = new Vditor('vditor', {
+        height: '100%',
+        width:'100%',
+        mode: 'wysiwyg',  //sv, ir, wysiwyg
+        lang: 'zh_CN', // zh_CN,en_US" +
+        theme: 'dark', //dark、classic
+        icon: 'ant', // material,ant
+        toolbar:toolbar,
+        cdn:'https://unpkg.com/vditor@3.9.8',
+        outline: {
+            enable: false,
+            position: 'left',
+        },
+        cache:{
+            enable:true,
+            id:'note-'+getId(),
+        },
+        debugger: false,
+        typewriterMode: true,
+        placeholder: '',
+        preview: {
+            theme:{
+                current:'dark'
+            },
+            markdown: {
+                toc: false,
+                mark: false,
+                footnotes: true,
+                autoSpace: true,
+            },
+            math: {
+                engine: 'KaTeX',
+            },
+        },
+        toolbarConfig: {
+            pin: true,
+        },
+        counter: {
+            enable: true,
+            type: 'text',
+        },
+        tab: '\t',
+    })
+</script>
+</body>
+</html>
