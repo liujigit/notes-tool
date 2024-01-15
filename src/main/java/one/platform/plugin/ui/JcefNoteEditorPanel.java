@@ -8,10 +8,12 @@ import com.intellij.util.ui.UIUtil;
 import one.platform.plugin.constant.Constants;
 import one.platform.plugin.handle.LocalRequestHandler;
 import one.platform.plugin.handle.LocalStaticResourceHandler;
+import one.platform.plugin.handle.MessageRouterHandler;
 import org.apache.commons.compress.utils.IOUtils;
 import org.cef.CefClient;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
+import org.cef.browser.CefMessageRouter;
 import org.cef.handler.CefWindowHandler;
 
 import javax.swing.*;
@@ -88,6 +90,12 @@ public class JcefNoteEditorPanel {
         jbCefClient = jbCefBrowser.getJBCefClient();
         jbCefClient.addRequestHandler(new LocalRequestHandler(), jbCefBrowser.getCefBrowser());
 
+        CefMessageRouter.CefMessageRouterConfig config = new CefMessageRouter.CefMessageRouterConfig();
+        config.jsQueryFunction = "cefQuery";// 定义方法
+        config.jsCancelFunction = "cefQueryCancel";// 定义取消方法
+        final CefMessageRouter cefMessageRouter = CefMessageRouter.create(config);
+        cefMessageRouter.addHandler(new MessageRouterHandler(),false);
+        jbCefClient.getCefClient().addMessageRouter(cefMessageRouter);
 //        CefBrowser devTools = jbCefBrowser.getCefBrowser().getDevTools();
 //        JBCefBrowser devToolsBrowser = JBCefBrowser.createBuilder()
 //                .setCefBrowser(devTools)

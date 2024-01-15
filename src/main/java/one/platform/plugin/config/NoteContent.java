@@ -1,4 +1,7 @@
-package one.platform.plugin.ui;
+package one.platform.plugin.config;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author liuji
@@ -7,10 +10,13 @@ package one.platform.plugin.ui;
 public class NoteContent {
     private int id;
 
+    private String title;
+
     private String content;
 
     public NoteContent(int id) {
         this.id = id;
+        this.title = "Note-"+ LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     public int getId() {
@@ -19,6 +25,14 @@ public class NoteContent {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {

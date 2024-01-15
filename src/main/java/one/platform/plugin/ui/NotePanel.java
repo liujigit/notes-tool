@@ -2,13 +2,14 @@ package one.platform.plugin.ui;
 
 import com.intellij.designer.LightFillLayout;
 import com.intellij.openapi.actionSystem.*;
+import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NoteIcons;
+import one.platform.plugin.config.NotesConfig;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.awt.*;
 
 /**
  * @author liuji
@@ -16,21 +17,23 @@ import java.util.Objects;
  **/
 public class NotePanel extends JPanel {
 
-    private final LinkedList<NoteContent> contents;
     private final JcefNoteEditorPanel editorPanel;
 
-    private int curIndex;
+    private JLabel labelNoteTitle;
+    private JLabel labelIndex;
 
+    private final NotesConfig config = NotesConfig.getInstance();
 
     public NotePanel() {
-        this(new LinkedList<>(),0);
-    }
+        this.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
 
-    public NotePanel(LinkedList<NoteContent> contents, int curIndex) {
-        this.contents = contents;
-        this.curIndex = curIndex;
+        labelNoteTitle = new JLabel("title");
+        labelIndex = new JLabel("index");
+        JPanel  panel = new JPanel();
+        panel.add(labelIndex);
+        panel.add(labelNoteTitle);
+        this.add(panel);
 
-        this.setLayout(new LightFillLayout());
         this.initToolBar();
 
         this.editorPanel = new JcefNoteEditorPanel();
@@ -44,48 +47,40 @@ public class NotePanel extends JPanel {
     }
 
     public synchronized void showCur() {
-        if(CollectionUtils.isEmpty(contents)) {
+        if(CollectionUtils.isEmpty(config.getContents())) {
             this.addNete();
         } else {
-            if(curIndex < 0) {
-                this.curIndex = this.contents.size() -1 + this.curIndex;;
+            if(config.getCurIndex() < 0) {
+                config.setCurIndex(this.config.getContents().size() -1 + this.config.getCurIndex());
             }
 
-            if(curIndex >= this.contents.size()) {
-                this.curIndex = this.curIndex - this.contents.size();
+            if(config.getCurIndex() >= this.config.getContents().size()) {
+                config.setCurIndex(this.config.getCurIndex() - this.config.getContents().size());
             }
-            this.editorPanel.showPage(contents.get(curIndex).getId());
+            this.editorPanel.showPage(config.getContents().get(config.getCurIndex()).getId());
         }
     }
 
     public void addNete() {
-        int nextId = this.getNextIdIndex();
-        contents.add(new NoteContent(nextId));
-        this.curIndex = this.contents.size() -1;
-        this.editorPanel.showPage(contents.get(curIndex).getId());
-    }
-
-
-    private int getNextIdIndex() {
-        if(contents.isEmpty()){
-            return 0;
-        }
-        return contents.getLast().getId() + 1;
+        int nextId = config.nextId();
+        config.getContents().add(new NoteContent(nextId));
+        this.config.setCurIndex(this.config.getContents().size() -1);
+        this.editorPanel.showPage(config.getContents().get(config.getCurIndex()).getId());
     }
 
     public void removeCurPanel() {
-        contents.remove(curIndex);
-        this.curIndex = Math.max(0,this.curIndex-1);
+        config.getContents().remove(this.config.getCurIndex());
+        this.config.setCurIndex(Math.max(0,this.config.getCurIndex()-1));
         this.showCur();
     }
 
     public void preNote() {
-        this.curIndex = this.curIndex - 1;
+        this.config.setCurIndex(this.config.getCurIndex() - 1);
         this.showCur();
     }
 
     public void nextNote() {
-        this.curIndex = this.curIndex + 1;
+        this.config.setCurIndex(this.config.getCurIndex() + 1);
         this.showCur();
     }
 
