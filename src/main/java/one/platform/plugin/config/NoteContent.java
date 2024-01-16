@@ -19,7 +19,7 @@ public class NoteContent {
     public NoteContent(int id) {
         this.id = id;
         this.createTime = LocalDateTime.now();
-        this.title = "Note-" + this.createTime.format(DateTimeFormatter.ISO_DATE_TIME);
+        this.title = "Note-" + this.createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public int getId() {

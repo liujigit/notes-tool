@@ -13,7 +13,7 @@ public class NotesConfig {
     private LinkedList<NoteContent> contents;
     private int curIndex;
 
-    private NotesConfig() {
+    public NotesConfig() {
         this.contents = new LinkedList<>();
         this.curIndex = 0;
     }

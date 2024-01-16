@@ -1,6 +1,8 @@
 package one.platform.plugin.handle;
 
+import com.intellij.openapi.components.ServiceManager;
 import one.platform.plugin.config.NotesConfig;
+import one.platform.plugin.config.NotesState;
 import org.apache.commons.lang3.StringUtils;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
@@ -25,7 +27,7 @@ public class MessageRouterHandler extends CefMessageRouterHandlerAdapter {
             String id = split[0];
             String mdStr = split[1];
             System.out.println(id);
-            NotesConfig.getInstance().loadCurContent(mdStr);
+            ServiceManager.getService(NotesState.class).getNotesConfig().loadCurContent(mdStr);
             callback.success(POST_MD_TITLE + " success!");
             return true;
         }

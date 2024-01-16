@@ -2,9 +2,11 @@ package one.platform.plugin.ui;
 
 import com.intellij.designer.LightFillLayout;
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.components.ServiceManager;
 import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NoteIcons;
 import one.platform.plugin.config.NotesConfig;
+import one.platform.plugin.config.NotesState;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +23,6 @@ public class NotePanel extends JPanel {
 
     private final JLabel labelNoteTitle;
     private final JLabel labelIndex;
-
-    private final NotesConfig config = NotesConfig.getInstance();
 
     public NotePanel() {
         this.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -41,41 +41,45 @@ public class NotePanel extends JPanel {
         this.showCur();
     }
 
+    private NotesConfig getConfig() {
+        return ServiceManager.getService(NotesState.class).getNotesConfig();
+    }
+
     public static NotePanel getInstance() {
         return new NotePanel();
     }
 
     public synchronized void showCur() {
-        if(CollectionUtils.isEmpty(config.getContents())) {
+        if(CollectionUtils.isEmpty(this.getConfig().getContents())) {
             this.addNete();
         } else {
-            NoteContent content = config.curNote();
+            NoteContent content = this.getConfig().curNote();
             this.editorPanel.showPage(content);
-            this.labelIndex.setText(String.format("[%s / %s] ",config.getCurIndex() + 1, config.size()));
-            this.labelNoteTitle.setText(this.config.curNote().getTitle());
+            this.labelIndex.setText(String.format("[%s / %s] ",this.getConfig().getCurIndex() + 1, this.getConfig().size()));
+            this.labelNoteTitle.setText(this.getConfig().curNote().getTitle());
         }
     }
 
     public synchronized void addNete() {
         editorPanel.saveCurPage();
-        NoteContent content = config.addNote();
+        NoteContent content = this.getConfig().addNote();
         this.showCur();
     }
 
     public synchronized void removeCurPanel() {
-        this.config.removeCur();
+        this.getConfig().removeCur();
         this.showCur();
     }
 
     public synchronized void preNote() {
         editorPanel.saveCurPage();
-        this.config.preNote();
+        this.getConfig().preNote();
         this.showCur();
     }
 
     public synchronized void nextNote() {
         editorPanel.saveCurPage();
-        this.config.nextNote();
+        this.getConfig().nextNote();
         this.showCur();
     }
 
