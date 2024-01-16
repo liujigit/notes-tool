@@ -25,14 +25,15 @@
     <script src="https://unpkg.com/vditor@3.9.8/dist/index.min.js"></script>
 </head>
 <body>
-<button onclick="postMd()">MD</button>
+<button onclick="saveContent()">MD</button>
 <div id="vditor"></div>
 <script>
     let toolbar = [
         'headings' , 'bold'
     ]
 
-    function postMd() {
+    function saveContent() {
+        console.log("saveContent");
         window.cefQuery({
             queryId:34,
             request: 'postMd:'+getId()+"-:"+getMd(),

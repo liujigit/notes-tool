@@ -5,6 +5,7 @@ import com.intellij.ui.jcef.JBCefBrowser;
 import com.intellij.ui.jcef.JBCefClient;
 import com.intellij.ui.jcef.JCEFHtmlPanel;
 import com.intellij.util.ui.UIUtil;
+import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.constant.Constants;
 import one.platform.plugin.handle.LocalRequestHandler;
 import one.platform.plugin.handle.LocalStaticResourceHandler;
@@ -65,16 +66,17 @@ public class JcefNoteEditorPanel {
     public void printMd(){
     }
 
+    public void saveCurPage() {
+        jbCefBrowser.getCefBrowser().executeJavaScript("saveContent()","",1);
+    }
+
     public void openDev(){
         jbCefBrowser.openDevtools();
     }
 
-    public void showPage(int id) {
-        String url = this.url(id);
+    public void showPage(NoteContent content) {
+        String url = this.url(content.getId());
         jbCefBrowser.loadURL(url);
-
-//        String html = this.html(id);
-//        jbCefBrowser.loadHTML(html);
     }
 
     private JComponent initComponent(boolean isDark){

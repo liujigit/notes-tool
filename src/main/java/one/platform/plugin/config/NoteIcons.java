@@ -30,6 +30,8 @@ public class NoteIcons {
     public static final Icon TRASH = AllIcons.General.Add;
     public static final Icon SEARCH = AllIcons.Actions.Search;
 
+    public static final Icon SAVE = AllIcons.Actions.MenuSaveall;
+
     public static final Icon DEVTOOL = AllIcons.General.OpenInToolWindow;
 
     public static final Icon PRE = AllIcons.General.LayoutEditorPreview;

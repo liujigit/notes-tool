@@ -14,9 +14,12 @@ public class NoteContent {
 
     private String content;
 
+    private LocalDateTime createTime;
+
     public NoteContent(int id) {
         this.id = id;
-        this.title = "Note-"+ LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        this.createTime = LocalDateTime.now();
+        this.title = "Note-" + this.createTime.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     public int getId() {

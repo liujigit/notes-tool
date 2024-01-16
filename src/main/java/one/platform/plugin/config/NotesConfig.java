@@ -31,11 +31,31 @@ public class NotesConfig {
     }
 
     public int getCurIndex() {
+        return this.curIndex;
+    }
+
+    private int curIndex(int curIndex) {
+        if(curIndex < 0) {
+            if(this.contents.isEmpty()) {
+                this.addNote();
+            } else {
+                curIndex = this.contents.size() + curIndex;
+            }
+        }
+
+        if(curIndex >= this.contents.size()) {
+            curIndex = curIndex - this.contents.size();
+            this.curIndex(curIndex);
+        }
         return curIndex;
     }
 
     public void setCurIndex(int curIndex) {
-        this.curIndex = curIndex;
+        this.curIndex = this.curIndex(curIndex);
+    }
+
+    public int size(){
+        return this.contents.size();
     }
 
     public void loadCurContent(String md) {
@@ -47,5 +67,32 @@ public class NotesConfig {
             return 0;
         }
         return contents.getLast().getId() + 1;
+    }
+
+    public NoteContent addNote(){
+        int nextId = this.nextId();
+        final NoteContent content = new NoteContent(nextId);
+        contents.add(content);
+        this.setCurIndex(contents.size() -1);
+        return content;
+    }
+
+    public void removeCur(){
+        contents.remove(this.getCurIndex());
+        this.setCurIndex(Math.max(0,this.getCurIndex()-1));
+    }
+
+    public int preNote(){
+        this.setCurIndex(this.getCurIndex() - 1);
+        return this.getCurIndex();
+    }
+
+    public int nextNote() {
+        this.setCurIndex(this.getCurIndex() + 1);
+        return this.getCurIndex();
+    }
+
+    public NoteContent curNote(){
+        return this.contents.get(this.getCurIndex());
     }
 }
