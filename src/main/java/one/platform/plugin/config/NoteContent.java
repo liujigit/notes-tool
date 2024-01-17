@@ -14,12 +14,16 @@ public class NoteContent {
 
     private String content;
 
-    private LocalDateTime createTime;
+    private final LocalDateTime createTime;
+
+    public NoteContent() {
+        this(0);
+    }
 
     public NoteContent(int id) {
         this.id = id;
         this.createTime = LocalDateTime.now();
-        this.title = "Note-" + this.createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.title = "Note-" + this.createTimeStr();
     }
 
     public int getId() {
@@ -44,5 +48,13 @@ public class NoteContent {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public String createTimeStr() {
+        return this.createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

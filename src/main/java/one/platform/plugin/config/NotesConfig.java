@@ -12,6 +12,8 @@ public class NotesConfig {
 
     private LinkedList<NoteContent> contents;
     private int curIndex;
+    private String theme;
+    private String lang;
 
     public NotesConfig() {
         this.contents = new LinkedList<>();

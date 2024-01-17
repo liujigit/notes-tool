@@ -49,6 +49,10 @@
                 icon="AllIcons.FileTypes.Custom"
                 canCloseContents="false"
                 factoryClass="one.platform.plugin.NoteToolWindow"/>
+
+        <applicationService
+                serviceImplementation="one.platform.plugin.config.NotesState"
+                serviceInterface="com.intellij.openapi.components.PersistentStateComponent"/>
     </extensions>
 
 

@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author liuji
@@ -29,6 +31,14 @@ public class NotePanel extends JPanel {
 
         labelIndex = new JLabel();
         labelNoteTitle = new JLabel();
+        labelNoteTitle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelNoteTitle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                renameNote();
+            }
+        });
 
         this.add(labelIndex);
         this.add(labelNoteTitle);;
@@ -41,8 +51,17 @@ public class NotePanel extends JPanel {
         this.showCur();
     }
 
+    private void renameNote(){
+        String noteTitle = NotesState.getInstance().curNote().getTitle();
+        String title = JOptionPane.showInputDialog(this, "Please enter title for this Note", noteTitle);
+        if (title != null && !title.isEmpty() && !title.equals(noteTitle)) {
+            NotesState.getInstance().curNote().setTitle(title);
+            labelNoteTitle.setText(title);
+        }
+    }
+
     private NotesConfig getConfig() {
-        return ServiceManager.getService(NotesState.class).getNotesConfig();
+        return NotesState.getInstance();
     }
 
     public static NotePanel getInstance() {
@@ -57,6 +76,7 @@ public class NotePanel extends JPanel {
             this.editorPanel.showPage(content);
             this.labelIndex.setText(String.format("[%s / %s] ",this.getConfig().getCurIndex() + 1, this.getConfig().size()));
             this.labelNoteTitle.setText(this.getConfig().curNote().getTitle());
+            this.labelNoteTitle.setToolTipText(this.getConfig().curNote().createTimeStr());
         }
     }
 
