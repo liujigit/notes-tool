@@ -23,7 +23,6 @@ public class NotesMessageRouterHandler extends CefMessageRouterHandlerAdapter {
     @Override
     public boolean onQuery(CefBrowser browser, CefFrame frame, long queryId, String request, boolean persistent, CefQueryCallback callback) {
         if(StringUtils.isNotBlank(request)) {
-            System.out.println(request);
             if(request.startsWith(GET_NOTE_NAME)) {
                 String id = request.substring(GET_NOTE_NAME.length());
                 this.getNote(id,callback);
@@ -43,7 +42,6 @@ public class NotesMessageRouterHandler extends CefMessageRouterHandlerAdapter {
 
     private void getNote(String id,CefQueryCallback callback) {
         final String content = NotesState.getInstance().curNote().getContent();
-        System.out.println("getNote -> " + content);
         callback.success(content);
     }
 
