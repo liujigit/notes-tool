@@ -44,10 +44,10 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow
-                id="NoteToolWindow"
+                id="NoteTool"
                 anchor="right"
-                secondary="true"
-                icon="AllIcons.FileTypes.Custom"
+                secondary="false"
+                icon="one.platform.plugin.config.NoteIcons.NOTE_ICON"
                 canCloseContents="false"
                 factoryClass="one.platform.plugin.NoteToolWindow"/>
 

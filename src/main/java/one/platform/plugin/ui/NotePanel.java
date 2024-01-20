@@ -1,8 +1,6 @@
 package one.platform.plugin.ui;
 
-import com.intellij.designer.LightFillLayout;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.components.ServiceManager;
 import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NoteIcons;
 import one.platform.plugin.config.NotesConfig;
@@ -117,47 +115,43 @@ public class NotePanel extends JPanel {
         final ActionManager actionManager = ActionManager.getInstance();
         final DefaultActionGroup dag = new DefaultActionGroup();
         dag.addSeparator();
-        dag.add(new AnAction("刷新", "Reload", NoteIcons.RELOAD) {
-            @Override
-            public void actionPerformed(@NotNull AnActionEvent event) {
-                editorPanel.reload();
-            }
-        });
-        dag.add(new AnAction("打印", "Print", NoteIcons.SEARCH) {
-            @Override
-            public void actionPerformed(@NotNull AnActionEvent event) {
-                editorPanel.printMd();
-            }
-        });
 
-        dag.add(new AnAction("保存", "Save", NoteIcons.SAVE) {
-            @Override
-            public void actionPerformed(@NotNull AnActionEvent event) {
-                editorPanel.saveCurPage();
-            }
-        });
-
-        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
-            @Override
-            public void actionPerformed(@NotNull AnActionEvent event) {
-                editorPanel.openDev();
-            }
-        });
-
-
-        dag.add(new AnAction("Pre", "Pre", NoteIcons.PRE) {
+        dag.add(new AnAction("上一页", "Pre", NoteIcons.PRE) {
             @Override
             public void actionPerformed(@NotNull AnActionEvent event) {
                 preNote();
             }
         });
 
-        dag.add(new AnAction("NEXT", "NEXT", NoteIcons.NEXT) {
+        dag.add(new AnAction("下一页", "NEXT", NoteIcons.NEXT) {
             @Override
             public void actionPerformed(@NotNull AnActionEvent event) {
                 nextNote();
             }
         });
+
+        dag.add(new AnAction("刷新", "Reload", NoteIcons.RELOAD) {
+            @Override
+            public void actionPerformed(@NotNull AnActionEvent event) {
+                editorPanel.reload();
+            }
+        });
+
+//        dag.add(new AnAction("保存", "Save", NoteIcons.SAVE) {
+//            @Override
+//            public void actionPerformed(@NotNull AnActionEvent event) {
+//                editorPanel.saveCurPage();
+//            }
+//        });
+
+//        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
+//            @Override
+//            public void actionPerformed(@NotNull AnActionEvent event) {
+//                editorPanel.openDev();
+//            }
+//        });
+
+
 
         dag.add(new AnAction("新增", "Add", NoteIcons.ADD) {
             @Override
@@ -166,7 +160,7 @@ public class NotePanel extends JPanel {
             }
         });
 
-        dag.add(new AnAction("删除", "Remove", NoteIcons.REMOVE_TAB_ICON) {
+        dag.add(new AnAction("删除", "Delete", NoteIcons.DELETE) {
             @Override
             public void actionPerformed(@NotNull AnActionEvent event) {
                 removeCurPanel();

@@ -30,8 +30,6 @@ public class JcefNoteEditorPanel {
 
     private JBCefClient jbCefClient;
 
-//    private JCEFHtmlPanel panel;
-
     public JcefNoteEditorPanel() {
         this.init();
     }
@@ -39,24 +37,16 @@ public class JcefNoteEditorPanel {
     private void init(){
         final boolean isDark = UIUtil.isUnderDarcula();
         this.editorPane = initComponent(isDark);
-//        this.getViewport().add(editorPane, BorderLayout.CENTER);
     }
-
 
     public JComponent getJComponent(){
         return editorPane;
     }
 
-
-
     public void reload(){
-//        String html = this.html();
-//        jbCefBrowser.loadHTML(html);
         jbCefBrowser.getCefBrowser().reloadIgnoreCache();
     }
 
-    public void printMd(){
-    }
 
 
 
