@@ -23,30 +23,16 @@ public class NotePanel extends JPanel {
 
     private final JcefNoteEditorPanel editorPanel;
 
-    private final JLabel labelNoteTitle;
-    private final JLabel labelIndex;
+    private JLabel labelNoteTitle;
+    private JLabel labelIndex;
 
     public NotePanel() {
-        this.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-
-        labelIndex = new JLabel();
-        labelNoteTitle = new JLabel();
-        labelNoteTitle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        labelNoteTitle.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                renameNote();
-            }
-        });
-
-        this.add(labelIndex);
-        this.add(labelNoteTitle);;
+        this.setLayout(new BorderLayout());
 
         this.initToolBar();
 
         this.editorPanel = new JcefNoteEditorPanel();
-        this.add(editorPanel.getJComponent());
+        this.add(BorderLayout.CENTER,editorPanel.getJComponent());
 
         this.showCur();
     }
@@ -105,6 +91,29 @@ public class NotePanel extends JPanel {
 
 
     private void initToolBar(){
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        labelIndex = new JLabel();
+        labelNoteTitle = new JLabel();
+        labelNoteTitle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelNoteTitle.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                renameNote();
+            }
+        });
+
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new FlowLayout());
+        titlePanel.add(labelIndex);
+        titlePanel.add(labelNoteTitle);
+        panel.add(BorderLayout.WEST,titlePanel);
+
+
         final ActionManager actionManager = ActionManager.getInstance();
         final DefaultActionGroup dag = new DefaultActionGroup();
         dag.addSeparator();
@@ -164,13 +173,14 @@ public class NotePanel extends JPanel {
             }
         });
 
-
         final ActionToolbar actionToolbar = actionManager.createActionToolbar("Notes", dag, true);
         actionToolbar.setTargetComponent(this);
         actionToolbar.setReservePlaceAutoPopupIcon(false);
 
         final JComponent actionToolbarComponent = actionToolbar.getComponent();
         actionToolbar.setReservePlaceAutoPopupIcon(false);
-        this.add(actionToolbarComponent);
+        panel.add(BorderLayout.EAST,actionToolbarComponent);
+
+        this.add(BorderLayout.NORTH,panel);
     }
 }
