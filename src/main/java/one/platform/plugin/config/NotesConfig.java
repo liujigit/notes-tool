@@ -95,6 +95,11 @@ public class NotesConfig {
     }
 
     public NoteContent curNote(){
-        return this.contents.get(this.getCurIndex());
+        final NoteContent content = this.contents.get(this.getCurIndex());
+        System.out.println(this.curIndex);
+        System.out.println(content.getId());
+        System.out.println(content.getContent());
+        System.out.println("--------------------");
+        return content;
     }
 }

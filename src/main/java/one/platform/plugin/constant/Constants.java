@@ -12,6 +12,10 @@ public class Constants {
 
     public static final String ORIGINAL_HOST_PRE = "https://unpkg.com/vditor@3.9.8";
 
+    public static final String NOTE_VALUE_PLACEHOLDERS = "value:''";
+    public static final String NOTE_VALUE_FORMAT= "value:'%s'";
+
+
     public static final String NOTE_ID = "note-id";
     public static final String NOTE_ID_FORMAT = "note-%s";
 }

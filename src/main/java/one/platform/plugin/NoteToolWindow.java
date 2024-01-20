@@ -1,5 +1,6 @@
 package one.platform.plugin;
 
+import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.wm.ToolWindow;
@@ -16,7 +17,7 @@ import javax.swing.*;
  * @author liuji
  * @date 2024/01/08 21:07
  **/
-public class NoteToolWindow implements ToolWindowFactory {
+public class NoteToolWindow implements ToolWindowFactory,DumbAware {
     private Key<JComponent> noteId = new Key<>("noteId");
     /**
      * @param project

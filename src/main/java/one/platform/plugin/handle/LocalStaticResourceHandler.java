@@ -5,9 +5,9 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.cef.misc.IntRef;
 import org.cef.misc.StringRef;
+import org.cef.network.CefRequest;
 import org.cef.network.CefResponse;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class LocalStaticResourceHandler extends StCefResourceHandlerAdapter{
     private final String file;
 
-    public LocalStaticResourceHandler(String uri) {
+    public LocalStaticResourceHandler(String uri, CefRequest request) {
         int index = uri.indexOf("?");
         String params = null;
         if(index >= 0 && uri.startsWith(Constants.INDEX_HTML)) {
@@ -70,51 +70,5 @@ public class LocalStaticResourceHandler extends StCefResourceHandlerAdapter{
                 break;
         }
         response.setStatus(200);
-    }
-
-    private String options(String id){
-        return "{\n" +
-                "        height: '100%',\n" +
-                "        width:'auto',\n" +
-                "        mode: 'wysiwyg',  //sv, ir, wysiwyg\n" +
-                "        lang: 'zh_CN', // zh_CN,en_US" +
-                "        theme: 'dark', //dark、classic\n" +
-                "        icon: 'ant', // material,ant\n" +
-                "        toolbar:null,\n" +
-                "        cdn:'http://inner/vditor/static',\n" +
-                "        outline: {\n" +
-                "            enable: false,\n" +
-                "            position: 'left',\n" +
-                "        },\n" +
-                "        cache:{\n" +
-                "            enable:true,\n" +
-                "            id:'vditor-"+id+"'\n" +
-                "        },\n" +
-                "        debugger: false,\n" +
-                "        typewriterMode: true,\n" +
-                "        placeholder: '',\n" +
-                "        preview: {\n" +
-                "            theme:{\n" +
-                "                current:'dark'\n" +
-                "            },\n" +
-                "            markdown: {\n" +
-                "                toc: false,\n" +
-                "                mark: false,\n" +
-                "                footnotes: true,\n" +
-                "                autoSpace: true,\n" +
-                "            },\n" +
-                "            math: {\n" +
-                "                engine: 'KaTeX',\n" +
-                "            },\n" +
-                "        },\n" +
-                "        toolbarConfig: {\n" +
-                "            pin: true,\n" +
-                "        },\n" +
-                "        counter: {\n" +
-                "            enable: true,\n" +
-                "            type: 'text',\n" +
-                "        },\n" +
-                "        tab: '\\t',\n" +
-                "    }";
     }
 }

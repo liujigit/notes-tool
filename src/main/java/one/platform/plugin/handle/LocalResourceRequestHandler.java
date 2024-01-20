@@ -21,7 +21,6 @@ public class LocalResourceRequestHandler extends CefResourceRequestHandlerAdapte
         }else {
             return null;
         }
-
-        return new LocalStaticResourceHandler(url);
+        return new LocalStaticResourceHandler(url,request);
     }
 }

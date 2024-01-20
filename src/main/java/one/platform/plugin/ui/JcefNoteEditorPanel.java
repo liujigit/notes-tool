@@ -71,6 +71,12 @@ public class JcefNoteEditorPanel {
     public void showPage(NoteContent content) {
         String url = this.url(content.getId());
         jbCefBrowser.loadURL(url);
+        this.setValue(content.getContent());
+    }
+
+    public void setValue(String content){
+        jbCefBrowser.getCefBrowser().executeJavaScript("setValue('"+content+"')",
+                jbCefBrowser.getCefBrowser().getURL(),0);
     }
 
     private JComponent initComponent(boolean isDark){
@@ -87,8 +93,8 @@ public class JcefNoteEditorPanel {
         jbCefClient.addRequestHandler(new LocalRequestHandler(), jbCefBrowser.getCefBrowser());
 
         CefMessageRouter.CefMessageRouterConfig config = new CefMessageRouter.CefMessageRouterConfig();
-        config.jsQueryFunction = "cefQuery";// 定义方法
-        config.jsCancelFunction = "cefQueryCancel";// 定义取消方法
+        config.jsQueryFunction = "noteQuery";// 定义方法
+        config.jsCancelFunction = "noteQueryCancel";// 定义取消方法
         final CefMessageRouter cefMessageRouter = CefMessageRouter.create(config);
         cefMessageRouter.addHandler(new NotesMessageRouterHandler(),false);
         jbCefClient.getCefClient().addMessageRouter(cefMessageRouter);

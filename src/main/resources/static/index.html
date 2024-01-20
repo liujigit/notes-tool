@@ -7,7 +7,7 @@
     <title>sdk issues</title>
     <style>
 
-        html,body, #vditor {
+        html,body {
             width: 100%;
             height: 100%;
             padding: 0;
@@ -17,9 +17,6 @@
             height: 100%;
             margin-top: 2rem;
         }
-        .vditor-reset {
-            border: 1px solid #efefef;
-        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/vditor@3.9.8/dist/index.css" />
     <script src="https://unpkg.com/vditor@3.9.8/dist/index.min.js"></script>
@@ -28,81 +25,37 @@
 <div id="vditor"></div>
 <script>
     let toolbar = null;
-
-    function getNoteCache(id) {
-        console.log("getNoteCache");
-        window.cefQuery({
-            queryId:34,
-            request: 'getNote:'+id,
-            persistent: false,
-            onSuccess: function(response) {
-                return response;
-            },
-            onFailure: function(error_code, error_message) {
-
-            }
-        })
-    }
-
-    function setNoteCache(id,content) {
-        console.log("setNoteCache");
-        window.cefQuery({
-            queryId:34,
-            request: 'setNote:'+id+"-:"+content,
-            persistent: false,
-            onSuccess: function(response) {
-                console.log(response);
-            },
-            onFailure: function(error_code, error_message) {
-
-            }
-        })
-    }
-
-    function removeNoteCache(id) {
-        console.log("removeNoteCache");
-        window.cefQuery({
-            queryId:34,
-            request: 'removeNoteContent:'+id,
-            persistent: false,
-            onSuccess: function(response) {
-                return response;
-            },
-            onFailure: function(error_code, error_message) {
-
-            }
-        })
-    }
-
-
+    console.log(window.location.search)
     function getId() {
-        var urlSearchParams = new URLSearchParams(window.location.search);
-        var id = urlSearchParams.get('id');
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const id = urlSearchParams.get('id');
         return id ? id : -1;
     }
-    var vditor = new Vditor('vditor', {
+
+    const vditor = new Vditor('vditor', {
         height: '100%',
-        width:'100%',
-        mode: 'wysiwyg',  //sv, ir, wysiwyg
+        width: '100%',
+        mode: 'sv',  //sv, ir, wysiwyg
         lang: 'zh_CN', // zh_CN,en_US" +
         theme: 'dark', //dark、classic
         icon: 'ant', // material,ant
-        toolbar:null,
-        cdn:'https://unpkg.com/vditor@3.9.8',
+        toolbar: null,
+        cdn: 'https://unpkg.com/vditor@3.9.8',
         outline: {
             enable: false,
             position: 'left',
         },
-        cache:{
-            enable:true,
-            id:'note-'+getId(),
+        value: '',
+        cache: {
+            enable: true,
+            id: 'note-' + getId(),
         },
         debugger: false,
         typewriterMode: true,
         placeholder: '',
         preview: {
-            theme:{
-                current:'dark'
+            theme: {
+                current: 'dark'
             },
             markdown: {
                 toc: false,
@@ -122,11 +75,59 @@
             type: 'text',
         },
         tab: '\t',
-    })
+    });
 
-    function getMd(){
-        return vditor.getValue();
+    function setValue(value){
+        console.log("setValue:"+value);
+        vditor.setValue(value);
     }
+
+    function getNoteCache(id) {
+        console.log("getNoteCache");
+        try {
+            window.noteQuery({
+                request: 'getNote:'+id,
+                persistent: true,
+                onSuccess: function(response) {
+                   setValue(response)
+                },
+                onFailure: function(error_code, error_message) {
+                    console.log("error_message getNoteCache:" + error_message);
+                }
+            })
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+    function setNoteCache(id,content) {
+        console.log("setNoteCache");
+        window.noteQuery({
+            request: 'setNote:'+id+"-:"+content,
+            persistent: true,
+            onSuccess: function(response) {
+                console.log(response);
+            },
+            onFailure: function(error_code, error_message) {
+                console.log("error_message setNoteCache:" + error_message);
+            }
+        })
+    }
+
+    function removeNoteCache(id) {
+        console.log("removeNoteCache");
+        window.noteQuery({
+            request: 'removeNoteContent:'+id,
+            persistent: true,
+            onSuccess: function(response) {
+                return response;
+            },
+            onFailure: function(error_code, error_message) {
+                console.log("error_message removeNoteCache:" + error_message);
+            }
+        })
+    }
+
 </script>
 </body>
 </html>
