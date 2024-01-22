@@ -1,5 +1,6 @@
 package one.platform.plugin;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
@@ -19,18 +20,24 @@ import javax.swing.*;
  **/
 public class NoteToolWindow implements ToolWindowFactory,DumbAware {
     private Key<JComponent> noteId = new Key<>("noteId");
+
+    private NotePanel panel;
     /**
      * @param project
      * @param toolWindow
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        JComponent panel = NotePanel.getInstance();
-        ContentFactory contentFactory = ContentFactory.getInstance();
+        this.panel = NotePanel.getInstance();
+        ContentFactory contentFactory = ApplicationManager.getApplication().getService(ContentFactory.class);
         Content content = contentFactory.createContent(panel, "", false);
         ContentManager contentManager = toolWindow.getContentManager();
         contentManager.addContent(content);
         project.putUserData(noteId,panel);
+    }
+
+    public void setTheme(String theme) {
+        this.panel.setTheme(theme);
     }
 
     /**

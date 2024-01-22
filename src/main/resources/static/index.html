@@ -4,19 +4,17 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-    <title>sdk issues</title>
+    <title>note tool</title>
     <style>
-
         html,body {
-            width: 100%;
-            height: 100%;
+            width: 98%;
+            height: 98%;
             padding: 0;
         }
         #vditor {
             width: 100%;
             height: 100%;
             padding: 0;
-            margin-top: 0rem;
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/vditor@3.9.8/dist/index.css" />
@@ -118,30 +116,30 @@
             name:'redo',
             tipPosition: 'se',
         },
-        "|",
-        {
-            name:'fullscreen',
-            tipPosition: 'se',
-        },
-        {
-            name:'edit-mode',
-            tipPosition: 'se',
-        },
-        {
-            name: "more",
-            tipPosition: 'sw',
-            toolbar: [
-                "both",
-                "code-theme",
-                "content-theme",
-                "export",
-                "outline",
-                "preview",
-                "devtools",
-                "info",
-                "help",
-            ],
-        },
+        // "|",
+        // {
+        //     name:'fullscreen',
+        //     tipPosition: 'se',
+        // },
+        // {
+        //     name:'edit-mode',
+        //     tipPosition: 'se',
+        // },
+        // {
+        //     name: "more",
+        //     tipPosition: 'sw',
+        //     toolbar: [
+        //         "both",
+        //         "code-theme",
+        //         "content-theme",
+        //         "export",
+        //         "outline",
+        //         "preview",
+        //         "devtools",
+        //         "info",
+        //         "help",
+        //     ],
+        // },
     ];
     console.log(window.location.search)
     function getId() {
@@ -159,15 +157,21 @@
         icon: 'ant', // material,ant
         placeholder: '请输入',
         toolbar: toolbar,
+        "toolbarConfig": {
+            "pin": true //固定工具栏
+        },
         cdn: 'https://unpkg.com/vditor@3.9.8',
         outline: {
             enable: false,
             position: 'left',
         },
-        // value: '',
+        value: null,
         cache: {
             enable: true,
             id: 'note-' + getId(),
+        },
+        fullscreen: {
+            index:100
         },
         debugger: false,
         typewriterMode: true,
@@ -202,11 +206,21 @@
     }
 
 
+    const themeMap = {
+        'dark': ['dark', 'dark', 'native'],
+        'light': ['dark', 'light', 'github']
+    };
+
+    function setCustomTheme(theme){
+        vditor.setTheme(...themeMap[theme])
+    }
+    
+
     function removeNoteCache(id) {
         console.log("removeNoteCache");
         window.noteQuery({
             request: 'removeNoteContent:'+id,
-            persistent: false,
+            persistent: true,
             onSuccess: function(response) {
                 return response;
             },
@@ -221,7 +235,7 @@
         try {
             window.noteQuery({
                 request: 'getNote:'+id,
-                persistent: false,
+                persistent: true,
                 onSuccess: function(response) {
                    setValue(response)
                 },
@@ -238,7 +252,7 @@
         console.log("setNoteCache");
         window.noteQuery({
             request: 'setNote:'+id+"-:"+content,
-            persistent: false,
+            persistent: true,
             onSuccess: function(response) {
                 console.log(response);
             },

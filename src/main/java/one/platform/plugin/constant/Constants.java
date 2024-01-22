@@ -1,5 +1,7 @@
 package one.platform.plugin.constant;
 
+import java.util.*;
+
 /**
  * @author liuji
  * @date 2024/01/11 21:50
@@ -18,4 +20,14 @@ public class Constants {
 
     public static final String NOTE_ID = "note-id";
     public static final String NOTE_ID_FORMAT = "note-%s";
+
+    public static final String SYS_THEME = "dark";
+    public static final String SYS_LANG = "zh_CN";
+
+
+    public static final String[] THEMES = {"dark","light"};
+
+    public static final String[] LANG_LIST = {"zh_CN"};
+//    public static final List<String> LANG_LIST = Arrays.asList("zh_CN","zh_TW","en_US","fr_FR","pt_BR","ru_RU","sv_SE",
+//            "ja_JP","ko_KR");
 }

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "one.platform.plugin"
-version = "1.0"
+version = "202"
 
 repositories {
     maven {url = uri("https://maven.aliyun.com/repository/central/")}
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jdom:jdom:1.1.3")
+    // implementation("org.jdom:jdom:1.1.3")
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -42,7 +42,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("222")
+        sinceBuild.set("202")
         untilBuild.set("241.*")
     }
 

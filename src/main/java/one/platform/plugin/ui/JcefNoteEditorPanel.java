@@ -35,8 +35,7 @@ public class JcefNoteEditorPanel {
     }
 
     private void init(){
-        final boolean isDark = UIUtil.isUnderDarcula();
-        this.editorPane = initComponent(isDark);
+        this.editorPane = initComponent();
     }
 
     public JComponent getJComponent(){
@@ -68,16 +67,17 @@ public class JcefNoteEditorPanel {
                 url,5);
     }
 
-    private JComponent initComponent(boolean isDark){
+    public void setTheme(String theme){
+        String javaScript = String.format("setCustomTheme('%s')",theme);
+        jbCefBrowser.getCefBrowser().executeJavaScript(javaScript,
+                "",6);
+    }
+
+    private JComponent initComponent(){
         if (!JBCefApp.isSupported()) {
             throw new RuntimeException("不支持jcef");
         }
-        jbCefBrowser = JCEFHtmlPanel.createBuilder()
-                .setCreateImmediately(true)
-                .setEnableOpenDevToolsMenuItem(true)
-                .setMouseWheelEventEnable(true)
-                .setOffScreenRendering(true)
-                .build();
+        jbCefBrowser = new JBCefBrowser();
         jbCefClient = jbCefBrowser.getJBCefClient();
         jbCefClient.addRequestHandler(new LocalRequestHandler(), jbCefBrowser.getCefBrowser());
 

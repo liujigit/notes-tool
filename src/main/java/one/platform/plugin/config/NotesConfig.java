@@ -1,5 +1,7 @@
 package one.platform.plugin.config;
 
+import one.platform.plugin.constant.Constants;
+
 import java.util.LinkedList;
 
 /**
@@ -8,20 +10,20 @@ import java.util.LinkedList;
  **/
 public class NotesConfig {
 
-    private static final NotesConfig INSTANCE = new NotesConfig();
-
     private LinkedList<NoteContent> contents;
     private int curIndex;
+    private boolean sysTheme;
     private String theme;
+    private boolean sysLang;
     private String lang;
 
     public NotesConfig() {
         this.contents = new LinkedList<>();
         this.curIndex = 0;
-    }
-
-    public static NotesConfig getInstance(){
-        return INSTANCE;
+        this.sysTheme = true;
+        this.sysLang = true;
+        this.theme = Constants.SYS_THEME;
+        this.lang = Constants.SYS_LANG;
     }
 
     public LinkedList<NoteContent> getContents() {
@@ -34,6 +36,22 @@ public class NotesConfig {
 
     public int getCurIndex() {
         return this.curIndex;
+    }
+
+    public boolean isSysTheme() {
+        return sysTheme;
+    }
+
+    public void setSysTheme(boolean sysTheme) {
+        this.sysTheme = sysTheme;
+    }
+
+    public boolean isSysLang() {
+        return sysLang;
+    }
+
+    public void setSysLang(boolean sysLang) {
+        this.sysLang = sysLang;
     }
 
     private int curIndex(int curIndex) {
@@ -54,6 +72,22 @@ public class NotesConfig {
 
     public void setCurIndex(int curIndex) {
         this.curIndex = this.curIndex(curIndex);
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public int size(){

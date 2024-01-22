@@ -54,6 +54,10 @@
         <applicationService
                 serviceImplementation="one.platform.plugin.config.NotesState"
                 serviceInterface="com.intellij.openapi.components.PersistentStateComponent"/>
+        <applicationConfigurable parentId="tools"
+                                 instance="one.platform.plugin.ui.NoteSettingPanel"
+                                 id="one.platform.plugin.ui.NoteSettingPanel"
+                                 displayName="NoteTool" />
     </extensions>
 
 

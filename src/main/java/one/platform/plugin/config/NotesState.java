@@ -7,6 +7,8 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * @author liuji
  * @date 2023/12/18 22:03
@@ -34,7 +36,9 @@ public final class NotesState implements PersistentStateComponent<NotesConfig> {
     @Override
     public void loadState(@NotNull NotesConfig notesConfig) {
 //        XmlSerializerUtil.copyBean(notesConfig, this.notesConfig);
-        this.notesConfig = notesConfig;
+        if(Objects.nonNull(notesConfig)){
+            this.notesConfig = notesConfig;
+        }
     }
 
    public static NotesConfig getInstance() {

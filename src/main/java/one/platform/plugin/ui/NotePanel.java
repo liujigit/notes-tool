@@ -5,6 +5,7 @@ import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NoteIcons;
 import one.platform.plugin.config.NotesConfig;
 import one.platform.plugin.config.NotesState;
+import one.platform.plugin.manager.NotePanelManager;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +26,8 @@ public class NotePanel extends JPanel {
     private JLabel labelIndex;
 
     public NotePanel() {
+        NotePanelManager.setPanel(this);
+
         this.setLayout(new BorderLayout());
 
         this.initToolBar();
@@ -71,8 +74,11 @@ public class NotePanel extends JPanel {
     }
 
     public synchronized void removeCurPanel() {
-        this.getConfig().removeCur();
-        this.showCur();
+        if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this Note?",
+                "Confirm Note Delete", JOptionPane.YES_NO_OPTION)) {
+            this.getConfig().removeCur();
+            this.showCur();
+        }
     }
 
     public synchronized void preNote() {
@@ -144,12 +150,12 @@ public class NotePanel extends JPanel {
 //            }
 //        });
 
-//        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
-//            @Override
-//            public void actionPerformed(@NotNull AnActionEvent event) {
-//                editorPanel.openDev();
-//            }
-//        });
+        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
+            @Override
+            public void actionPerformed(@NotNull AnActionEvent event) {
+                editorPanel.openDev();
+            }
+        });
 
 
 
@@ -176,5 +182,9 @@ public class NotePanel extends JPanel {
         panel.add(BorderLayout.EAST,actionToolbarComponent);
 
         this.add(BorderLayout.NORTH,panel);
+    }
+
+    public void setTheme(String theme) {
+        this.editorPanel.setTheme(theme);
     }
 }
