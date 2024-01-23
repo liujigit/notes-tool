@@ -90,6 +90,14 @@ public class NotesConfig {
         this.lang = lang;
     }
 
+    public String theme(){
+        return this.isSysTheme() ? Constants.SYS_THEME : this.theme;
+    }
+
+    public String lang(){
+        return this.isSysLang() ? Constants.SYS_LANG : this.lang;
+    }
+
     public int size(){
         return this.contents.size();
     }

@@ -1,14 +1,19 @@
 package one.platform.plugin.ui;
 
+import com.intellij.openapi.Disposable;
+import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.jcef.JBCefApp;
 import com.intellij.ui.jcef.JBCefBrowser;
 import com.intellij.ui.jcef.JBCefClient;
 import com.intellij.ui.jcef.JCEFHtmlPanel;
 import com.intellij.util.ui.UIUtil;
 import one.platform.plugin.config.NoteContent;
+import one.platform.plugin.config.NotesConfig;
+import one.platform.plugin.config.NotesState;
 import one.platform.plugin.constant.Constants;
 import one.platform.plugin.handle.LocalRequestHandler;
 import one.platform.plugin.handle.NotesMessageRouterHandler;
+import one.platform.plugin.manager.NotePanelManager;
 import org.apache.commons.compress.utils.IOUtils;
 import org.cef.browser.CefMessageRouter;
 
@@ -32,6 +37,7 @@ public class JcefNoteEditorPanel {
 
     public JcefNoteEditorPanel() {
         this.init();
+        NotePanelManager.setPanel(this);
     }
 
     private void init(){
@@ -60,6 +66,10 @@ public class JcefNoteEditorPanel {
     public void showPage(NoteContent content) {
         String url = this.url(content.getId());
         jbCefBrowser.loadURL(url);
+    }
+
+    public void refresh(){
+        this.showPage(NotesState.getInstance().curNote());
     }
 
     public void setValue(String url,String content){
@@ -101,7 +111,9 @@ public class JcefNoteEditorPanel {
     }
 
     private String url(int id){
-        return Constants.LOCALHOST + Constants.INDEX_HTML+"?id="+id;
+        final NotesConfig config = NotesState.getInstance();
+        return Constants.LOCALHOST + Constants.INDEX_HTML+
+                String.format("?id=%s&theme=%s&lang=%s",id,config.theme(),config.lang());
     }
 
     public String html(int id){

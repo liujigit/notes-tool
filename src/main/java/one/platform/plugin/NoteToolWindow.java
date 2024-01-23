@@ -28,7 +28,7 @@ public class NoteToolWindow implements ToolWindowFactory,DumbAware {
      */
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        this.panel = NotePanel.getInstance();
+        this.panel = NotePanel.getInstance(project);
         ContentFactory contentFactory = ApplicationManager.getApplication().getService(ContentFactory.class);
         Content content = contentFactory.createContent(panel, "", false);
         ContentManager contentManager = toolWindow.getContentManager();

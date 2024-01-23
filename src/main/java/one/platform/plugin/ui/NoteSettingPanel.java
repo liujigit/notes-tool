@@ -8,7 +8,6 @@ import one.platform.plugin.config.NotesConfig;
 import one.platform.plugin.config.NotesState;
 import one.platform.plugin.constant.Constants;
 import one.platform.plugin.manager.NotePanelManager;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,99 +22,140 @@ import java.util.Objects;
  **/
 public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
 
-    private NotesConfig config;
+    private JLabel themeLabel;
+    private JRadioButton sysThemeBut;
+    private JRadioButton customThemeBut;
+    private JComboBox<String> themeBox;
+
+    private JLabel langLabel;
+    private JRadioButton sysLangBut;
+    private JRadioButton customLangBut;
+    private JComboBox<String> langBox;
+
 
     public NoteSettingPanel() {
+        this.initComponent();
+        this.initLayout();
         this.loadConfig();
-        this.themePanel();
-        this.langPanel();
     }
 
-    public void themePanel(){
+    private void initComponent(){
+        themeLabel = new JLabel("主题");
+        sysThemeBut = new JRadioButton("系统");
+        sysThemeBut.addActionListener(e -> {
+            final boolean selected = sysThemeBut.isSelected();
+            if(selected) {
+                themeBox.setVisible(false);
+            }
+        });
+        customThemeBut  = new JRadioButton("自定义"){
+            public void setSelected(boolean b) {
+                super.setSelected(b);
+                themeBox.setVisible(true);
+            }
+        };
 
-        JComboBox<String> comboBox = new ComboBox<>(Constants.THEMES);
-        comboBox.setSelectedItem(StringUtils.isBlank(config.getTheme()) ?
-                Constants.SYS_THEME:config.getTheme());
-        comboBox.setVisible(false);
-        comboBox.addActionListener(e-> {
-            final String theme = String.valueOf(comboBox.getSelectedItem());
-            config.setTheme(theme);
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(sysThemeBut);
+        themeGroup.add(customThemeBut);
+
+        customThemeBut.addActionListener(e -> {
+            final boolean selected = customThemeBut.isSelected();
+            if(selected) {
+                themeBox.setVisible(true);
+            }
+        });
+        themeBox = new ComboBox<>(Constants.THEMES);
+        themeBox.setVisible(false);
+        themeBox.addActionListener(e-> {
+            final String theme = String.valueOf(themeBox.getSelectedItem());
             NotePanelManager.getPanel().setTheme(theme);
         });
 
-        JRadioButton defaultTheme = new JRadioButton("系统",config.isSysTheme());
-        defaultTheme.addActionListener(e -> {
-            final boolean selected = defaultTheme.isSelected();
+
+        langLabel = new JLabel("语言");
+        sysLangBut = new JRadioButton("系统");
+        sysLangBut.addActionListener(e -> {
+            final boolean selected = sysLangBut.isSelected();
             if(selected) {
-                comboBox.setVisible(false);
-                config.setSysTheme(true);
+                langBox.setVisible(false);
             }
         });
-        JRadioButton customTheme = new JRadioButton("自定义",!config.isSysTheme());
-
-        customTheme.addActionListener(e -> {
-            final boolean selected = customTheme.isSelected();
-            if(selected) {
-                comboBox.setVisible(true);
-                config.setSysTheme(false);
+        customLangBut = new JRadioButton("自定义"){
+            public void setSelected(boolean b) {
+                super.setSelected(b);
+                langBox.setVisible(true);
             }
-        });
-
-        ButtonGroup themeGroup = new ButtonGroup();
-        themeGroup.add(defaultTheme);
-        themeGroup.add(customTheme);
-
-        JPanel themePanel = new JPanel();
-        themePanel.add(new JLabel("主题"));
-        themePanel.add(defaultTheme);
-        themePanel.add(customTheme);
-        themePanel.add(comboBox);
-
-        this.add(themePanel);
-    }
-
-
-    public void langPanel(){
-
-        JComboBox<String> comboBox = new ComboBox<>(Constants.LANG_LIST);
-        comboBox.setSelectedItem(StringUtils.isBlank(config.getLang()) ?
-                Constants.SYS_LANG:config.getLang());
-        comboBox.setVisible(false);
-        comboBox.addActionListener(e-> {
-            final String theme = String.valueOf(comboBox.getSelectedItem());
-            config.setLang(theme);
-        });
-
-        JRadioButton defaultLang = new JRadioButton("系统",config.isSysLang());
-        defaultLang.addActionListener(e -> {
-            final boolean selected = defaultLang.isSelected();
+        };
+        customLangBut.addActionListener(e -> {
+            final boolean selected = customLangBut.isSelected();
             if(selected) {
-                comboBox.setVisible(false);
-                config.setSysLang(true);
-            }
-        });
-        JRadioButton customLang = new JRadioButton("自定义",!config.isSysLang());
-
-        customLang.addActionListener(e -> {
-            final boolean selected = customLang.isSelected();
-            if(selected) {
-                comboBox.setVisible(true);
-                config.setSysLang(false);
+                langBox.setVisible(true);
             }
         });
 
         ButtonGroup langGroup = new ButtonGroup();
-        langGroup.add(defaultLang);
-        langGroup.add(customLang);
+        langGroup.add(sysLangBut);
+        langGroup.add(customLangBut);
 
-        JPanel langPanel = new JPanel();
-        langPanel.add(new JLabel("语言"));
-        langPanel.add(defaultLang);
-        langPanel.add(customLang);
-        langPanel.add(comboBox);
-
-        this.add(langPanel);
+        langBox = new ComboBox<>(Constants.LANG_LIST);
+        langBox.setVisible(false);
     }
+
+
+    private void initLayout(){
+        GroupLayout layout = new GroupLayout(this);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        this.setLayout(layout);
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup()
+                                .addGap(10)
+                                .addComponent(themeLabel)
+                                .addComponent(sysThemeBut)
+                                .addComponent(customThemeBut)
+                                .addComponent(themeBox)
+                                .addGap(10)
+                        )
+                        .addGroup(layout.createParallelGroup()
+                                .addGap(10)
+                                .addComponent(langLabel)
+                                .addComponent(sysLangBut)
+                                .addComponent(customLangBut)
+                                .addComponent(langBox)
+                                .addGap(10)
+                        ));
+
+        layout.setHorizontalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(themeLabel)
+                                .addComponent(langLabel))
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(sysThemeBut)
+                                .addComponent(sysLangBut))
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(customThemeBut)
+                                .addComponent(customLangBut))
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(themeBox)
+                                .addComponent(langBox)));
+    }
+
+
+    private void loadConfig(){
+        final NotesConfig instance = NotesState.getInstance();
+        sysLangBut.setSelected(instance.isSysTheme());
+        customThemeBut.setSelected(!instance.isSysTheme());
+        themeBox.setSelectedItem(instance.getTheme());
+
+        sysLangBut.setSelected(instance.isSysLang());
+        customLangBut.setSelected(!instance.isSysLang());
+        langBox.setSelectedItem(instance.getLang());
+    }
+
+
 
     /**
      * @return
@@ -148,10 +188,10 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
     @Override
     public boolean isModified() {
         final NotesConfig instance = NotesState.getInstance();
-        boolean isModifiedTheme = instance.isSysTheme() == config.isSysTheme() &&
-                Objects.equals(instance.getTheme(),config.getTheme());
-        boolean isModifiedLang = instance.isSysLang() == config.isSysLang() &&
-                Objects.equals(instance.getLang(),config.getLang());
+        boolean isModifiedTheme = instance.isSysTheme() == sysThemeBut.isSelected() &&
+                Objects.equals(instance.getTheme(),themeBox.getSelectedItem());
+        boolean isModifiedLang = instance.isSysLang() == sysLangBut.isSelected() &&
+                Objects.equals(instance.getLang(),langBox.getSelectedItem());
         return !(isModifiedTheme && isModifiedLang);
     }
 
@@ -161,11 +201,11 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
     @Override
     public void apply() throws ConfigurationException {
         final NotesConfig instance = NotesState.getInstance();
-        instance.setSysLang(config.isSysLang());
-        instance.setLang(config.getLang());
-        instance.setSysTheme(config.isSysTheme());
-        instance.setTheme(config.getTheme());
-        final NotePanel component = NotePanelManager.getPanel();
+        instance.setSysTheme(sysThemeBut.isSelected());
+        instance.setTheme(String.valueOf(themeBox.getSelectedItem()));
+        instance.setSysLang(sysLangBut.isSelected());
+        instance.setLang(String.valueOf(langBox.getSelectedItem()));
+        NotePanelManager.getPanel().refresh();
     }
 
     /**
@@ -175,21 +215,10 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
     public void reset() {
         SearchableConfigurable.super.reset();
         this.loadConfig();
-        this.resetUi();
+        NotePanelManager.getPanel().refresh();
     }
 
-    public void resetUi() {
 
-    }
-
-    private void loadConfig(){
-        final NotesConfig instance = NotesState.getInstance();
-        this.config = new NotesConfig();
-        config.setSysLang(instance.isSysLang());
-        config.setLang(instance.getLang());
-        config.setSysTheme(instance.isSysTheme());
-        config.setTheme(instance.getTheme());
-    }
 
     /**
      *
@@ -198,5 +227,6 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
     public void cancel() {
         SearchableConfigurable.super.cancel();
         this.loadConfig();
+        NotePanelManager.getPanel().refresh();
     }
 }

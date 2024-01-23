@@ -1,5 +1,7 @@
 package one.platform.plugin.manager;
 
+import one.platform.plugin.config.NotesState;
+import one.platform.plugin.ui.JcefNoteEditorPanel;
 import one.platform.plugin.ui.NotePanel;
 
 /**
@@ -7,13 +9,13 @@ import one.platform.plugin.ui.NotePanel;
  * @date 2024/01/21 22:54
  **/
 public class NotePanelManager {
-    private static NotePanel panel;
+    private static JcefNoteEditorPanel panel;
 
-    public static void setPanel(NotePanel panel) {
+    public static void setPanel(JcefNoteEditorPanel panel) {
         NotePanelManager.panel = panel;
     }
 
-    public static NotePanel getPanel() {
+    public static JcefNoteEditorPanel getPanel() {
         return panel;
     }
 }

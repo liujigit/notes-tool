@@ -23,6 +23,10 @@
 <body>
 <div id="vditor"></div>
 <script>
+    let themeMap = {
+        'dark': ['dark', 'dark', 'native'],
+        'light': ['classic', 'light', 'github']
+    };
     let toolbar = [
         {
             name:'emoji',
@@ -141,25 +145,21 @@
         //     ],
         // },
     ];
-    console.log(window.location.search)
-    function getId() {
+    function getParam(key,defaultValue) {
         const urlSearchParams = new URLSearchParams(window.location.search);
-        const id = urlSearchParams.get('id');
-        return id ? id : -1;
+        const value = urlSearchParams.get(key);
+        return value ? value : defaultValue;
     }
 
     const vditor = new Vditor('vditor', {
         height: '100%',
         width: 'auto',
         mode: 'wysiwyg',  //sv, ir, wysiwyg
-        lang: 'zh_CN', // zh_CN,en_US" +
-        theme: 'dark', //dark、classic
+        lang: getParam('lang','zh_CN'), // zh_CN,en_US" +
+        theme: themeMap[getParam('theme','dark')][0], //dark、classic
         icon: 'ant', // material,ant
         placeholder: '请输入',
         toolbar: toolbar,
-        "toolbarConfig": {
-            "pin": true //固定工具栏
-        },
         cdn: 'https://unpkg.com/vditor@3.9.8',
         outline: {
             enable: false,
@@ -168,7 +168,7 @@
         value: null,
         cache: {
             enable: true,
-            id: 'note-' + getId(),
+            id: 'note-' + getParam('id','-1'),
         },
         fullscreen: {
             index:100
@@ -178,7 +178,10 @@
         preview: {
             actions: ["desktop", "tablet", "mobile"], //" desktop", "tablet", "mobile", "mp-wechat", "zhihu"
             theme: {
-                current: 'dark'
+                current: themeMap[getParam('theme','dark')][1],
+            },
+            hljs:{
+                style:themeMap[getParam('theme','dark')][2],
             },
             markdown: {
                 toc: false,
@@ -191,7 +194,7 @@
             },
         },
         toolbarConfig: {
-            pin: true,
+            pin: true, //固定工具栏
         },
         counter: {
             enable: true,
@@ -206,15 +209,10 @@
     }
 
 
-    const themeMap = {
-        'dark': ['dark', 'dark', 'native'],
-        'light': ['dark', 'light', 'github']
-    };
-
     function setCustomTheme(theme){
         vditor.setTheme(...themeMap[theme])
     }
-    
+
 
     function removeNoteCache(id) {
         console.log("removeNoteCache");

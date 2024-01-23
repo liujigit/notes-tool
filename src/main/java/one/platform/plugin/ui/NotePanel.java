@@ -1,6 +1,8 @@
 package one.platform.plugin.ui;
 
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.options.ShowSettingsUtil;
+import com.intellij.openapi.project.Project;
 import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NoteIcons;
 import one.platform.plugin.config.NotesConfig;
@@ -24,10 +26,10 @@ public class NotePanel extends JPanel {
 
     private JLabel labelNoteTitle;
     private JLabel labelIndex;
+    private final Project project;
 
-    public NotePanel() {
-        NotePanelManager.setPanel(this);
-
+    private NotePanel(Project project) {
+        this.project = project;
         this.setLayout(new BorderLayout());
 
         this.initToolBar();
@@ -51,8 +53,8 @@ public class NotePanel extends JPanel {
         return NotesState.getInstance();
     }
 
-    public static NotePanel getInstance() {
-        return new NotePanel();
+    public static NotePanel getInstance(Project project) {
+        return new NotePanel(project);
     }
 
     public synchronized void showCur() {
@@ -170,6 +172,13 @@ public class NotePanel extends JPanel {
             @Override
             public void actionPerformed(@NotNull AnActionEvent event) {
                 removeCurPanel();
+            }
+        });
+
+        dag.add(new AnAction("设置", "Setting", NoteIcons.SETTINGS) {
+            @Override
+            public void actionPerformed(@NotNull AnActionEvent event) {
+                ShowSettingsUtil.getInstance().showSettingsDialog(project,NoteSettingPanel.class);
             }
         });
 
