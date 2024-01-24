@@ -152,12 +152,12 @@ public class NotePanel extends JPanel {
 //            }
 //        });
 
-        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
-            @Override
-            public void actionPerformed(@NotNull AnActionEvent event) {
-                editorPanel.openDev();
-            }
-        });
+//        dag.add(new AnAction("Devtool", "Devtool", NoteIcons.DEVTOOL) {
+//            @Override
+//            public void actionPerformed(@NotNull AnActionEvent event) {
+//                editorPanel.openDev();
+//            }
+//        });
 
 
 
