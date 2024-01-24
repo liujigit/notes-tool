@@ -18,22 +18,21 @@
         Add and delete tab pages. Save data <br>
         <br>
         Future support: <br>
-            ①, more friendly interaction <br>
-            ②, support url jump <br>
-            ③, support url preview <br>
-            ④, support to change the tab name <br>
-            Etc. <br>
+        ①, more friendly interaction <br>
+        ②, fixed desktop <br>
+        ③, support internationalization <br>
+        ④, subject department system changes <br>
+        ⑤,... <br>
 
         idea 插件 -- 日记本<br>
         支持增加、删除tab页；保存数据<br>
         <br>
         未来支持：<br>
             ①、交互更加友好<br>
-            ②、支持url跳转<br>
-            ③、支持url预览<br>
-            ④、支持修改tab名称<br>
-            ⑤、默认定位右上角
-            等等<br>
+            ②、固定桌面<br>
+            ③、支持国际化<br>
+            ④、主题科所系统变化<br>
+            ⑤、...<br>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.

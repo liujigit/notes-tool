@@ -69,6 +69,7 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
             themeBox.setVisible(selected);
         });
         themeBox = new ComboBox<>(Constants.THEMES);
+        themeBox.setVisible(false);
         themeBox.addActionListener(e-> {
             final String theme = String.valueOf(themeBox.getSelectedItem());
             if(customThemeBut.isSelected()) {
@@ -106,6 +107,7 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
         langGroup.add(customLangBut);
 
         langBox = new ComboBox<>(Constants.LANG_LIST);
+        langBox.setVisible(false);
     }
 
 

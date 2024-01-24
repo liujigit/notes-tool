@@ -11,7 +11,7 @@ import javax.swing.*;
  **/
 public class NoteIcons {
 
-    public static final Icon  NOTE_ICON = NoteIcons.loadIcon("META-INF/note.svg");
+    public static final Icon  NOTE_ICON = NoteIcons.loadIcon("META-INF/pluginIcon.svg");
 
     public static final Icon  ADD_TAB_ICON = AllIcons.General.Add;
 
