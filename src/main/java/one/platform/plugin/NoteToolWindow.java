@@ -36,10 +36,6 @@ public class NoteToolWindow implements ToolWindowFactory,DumbAware {
         project.putUserData(noteId,panel);
     }
 
-    public void setTheme(String theme) {
-        this.panel.setTheme(theme);
-    }
-
     /**
      * @param toolWindow
      */

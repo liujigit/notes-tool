@@ -1,12 +1,8 @@
 package one.platform.plugin.ui;
 
-import com.intellij.openapi.Disposable;
-import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.jcef.JBCefApp;
 import com.intellij.ui.jcef.JBCefBrowser;
 import com.intellij.ui.jcef.JBCefClient;
-import com.intellij.ui.jcef.JCEFHtmlPanel;
-import com.intellij.util.ui.UIUtil;
 import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NotesConfig;
 import one.platform.plugin.config.NotesState;
@@ -38,6 +34,7 @@ public class JcefNoteEditorPanel {
     public JcefNoteEditorPanel() {
         this.init();
         NotePanelManager.setPanel(this);
+//        Disposer.register(editorPane);
     }
 
     private void init(){

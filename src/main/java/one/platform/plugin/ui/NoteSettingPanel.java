@@ -41,7 +41,12 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
 
     private void initComponent(){
         themeLabel = new JLabel("主题");
-        sysThemeBut = new JRadioButton("系统");
+        sysThemeBut = new JRadioButton("系统"){
+            public void setSelected(boolean b) {
+                super.setSelected(b);
+                themeBox.setVisible(!b);
+            }
+        };
         sysThemeBut.addActionListener(e -> {
             final boolean selected = sysThemeBut.isSelected();
             if(selected) {
@@ -51,7 +56,7 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
         customThemeBut  = new JRadioButton("自定义"){
             public void setSelected(boolean b) {
                 super.setSelected(b);
-                themeBox.setVisible(true);
+                themeBox.setVisible(b);
             }
         };
 
@@ -61,20 +66,24 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
 
         customThemeBut.addActionListener(e -> {
             final boolean selected = customThemeBut.isSelected();
-            if(selected) {
-                themeBox.setVisible(true);
-            }
+            themeBox.setVisible(selected);
         });
         themeBox = new ComboBox<>(Constants.THEMES);
-        themeBox.setVisible(false);
         themeBox.addActionListener(e-> {
             final String theme = String.valueOf(themeBox.getSelectedItem());
-            NotePanelManager.getPanel().setTheme(theme);
+            if(customThemeBut.isSelected()) {
+                NotePanelManager.getPanel().setTheme(theme);
+            }
         });
 
 
         langLabel = new JLabel("语言");
-        sysLangBut = new JRadioButton("系统");
+        sysLangBut = new JRadioButton("系统"){
+            public void setSelected(boolean b) {
+                super.setSelected(b);
+                themeBox.setVisible(!b);
+            }
+        };
         sysLangBut.addActionListener(e -> {
             final boolean selected = sysLangBut.isSelected();
             if(selected) {
@@ -84,14 +93,12 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
         customLangBut = new JRadioButton("自定义"){
             public void setSelected(boolean b) {
                 super.setSelected(b);
-                langBox.setVisible(true);
+                langBox.setVisible(b);
             }
         };
         customLangBut.addActionListener(e -> {
             final boolean selected = customLangBut.isSelected();
-            if(selected) {
-                langBox.setVisible(true);
-            }
+            langBox.setVisible(selected);
         });
 
         ButtonGroup langGroup = new ButtonGroup();
@@ -99,7 +106,6 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
         langGroup.add(customLangBut);
 
         langBox = new ComboBox<>(Constants.LANG_LIST);
-        langBox.setVisible(false);
     }
 
 
@@ -115,7 +121,7 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
                                 .addComponent(themeLabel)
                                 .addComponent(sysThemeBut)
                                 .addComponent(customThemeBut)
-                                .addComponent(themeBox)
+                                .addComponent(themeBox,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,20)
                                 .addGap(10)
                         )
                         .addGroup(layout.createParallelGroup()
@@ -123,7 +129,7 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
                                 .addComponent(langLabel)
                                 .addComponent(sysLangBut)
                                 .addComponent(customLangBut)
-                                .addComponent(langBox)
+                                .addComponent(langBox,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,20)
                                 .addGap(10)
                         ));
 
@@ -146,7 +152,8 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
 
     private void loadConfig(){
         final NotesConfig instance = NotesState.getInstance();
-        sysLangBut.setSelected(instance.isSysTheme());
+        System.out.println("NotesConfig:" + instance .isSysTheme() + " : " + instance.isSysLang() );
+        sysThemeBut.setSelected(instance.isSysTheme());
         customThemeBut.setSelected(!instance.isSysTheme());
         themeBox.setSelectedItem(instance.getTheme());
 
@@ -178,7 +185,6 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
      */
     @Override
     public @Nullable JComponent createComponent() {
-        this.loadConfig();
         return this;
     }
 
@@ -217,8 +223,6 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
         this.loadConfig();
         NotePanelManager.getPanel().refresh();
     }
-
-
 
     /**
      *

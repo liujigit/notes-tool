@@ -1,6 +1,8 @@
 package one.platform.plugin.config;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,7 +16,7 @@ public class NoteContent {
 
     private String content;
 
-    private final LocalDateTime createTime;
+    private Long createTime;
 
     public NoteContent() {
         this(0);
@@ -22,7 +24,7 @@ public class NoteContent {
 
     public NoteContent(int id) {
         this.id = id;
-        this.createTime = LocalDateTime.now();
+        this.createTime = System.currentTimeMillis();
         this.title = "Note-" + this.createTimeStr();
     }
 
@@ -50,11 +52,15 @@ public class NoteContent {
         this.content = content;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
     public String createTimeStr() {
-        return this.createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return Instant.ofEpochMilli(this.createTime).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

@@ -65,7 +65,7 @@ public class NotePanel extends JPanel {
             this.editorPanel.showPage(content);
             this.labelIndex.setText(String.format("[%s / %s] ",this.getConfig().getCurIndex() + 1, this.getConfig().size()));
             this.labelNoteTitle.setText(this.getConfig().curNote().getTitle());
-            this.labelNoteTitle.setToolTipText(this.getConfig().curNote().createTimeStr());
+            this.labelNoteTitle.setToolTipText("创建时间:" + this.getConfig().curNote().createTimeStr());
         }
     }
 
@@ -191,9 +191,5 @@ public class NotePanel extends JPanel {
         panel.add(BorderLayout.EAST,actionToolbarComponent);
 
         this.add(BorderLayout.NORTH,panel);
-    }
-
-    public void setTheme(String theme) {
-        this.editorPanel.setTheme(theme);
     }
 }
