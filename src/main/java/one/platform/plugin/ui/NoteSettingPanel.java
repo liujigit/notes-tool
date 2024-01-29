@@ -154,7 +154,6 @@ public class NoteSettingPanel extends JPanel implements SearchableConfigurable {
 
     private void loadConfig(){
         final NotesConfig instance = NotesState.getInstance();
-        System.out.println("NotesConfig:" + instance .isSysTheme() + " : " + instance.isSysLang() );
         sysThemeBut.setSelected(instance.isSysTheme());
         customThemeBut.setSelected(!instance.isSysTheme());
         themeBox.setSelectedItem(instance.getTheme());

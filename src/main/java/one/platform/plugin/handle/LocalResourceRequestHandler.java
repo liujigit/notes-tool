@@ -15,7 +15,6 @@ public class LocalResourceRequestHandler extends CefResourceRequestHandlerAdapte
 
     public CefResourceHandler getResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request) {
         String url = request.getURL();
-        System.out.println(url);
         if(url.startsWith(Constants.LOCALHOST)) {
             url = url.replace(Constants.LOCALHOST,"");
         }else {

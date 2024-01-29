@@ -1,8 +1,7 @@
 package one.platform.plugin.ui;
 
-import com.intellij.ui.jcef.JBCefApp;
-import com.intellij.ui.jcef.JBCefBrowser;
-import com.intellij.ui.jcef.JBCefClient;
+import com.intellij.ide.BrowserUtil;
+import com.intellij.ui.jcef.*;
 import one.platform.plugin.config.NoteContent;
 import one.platform.plugin.config.NotesConfig;
 import one.platform.plugin.config.NotesState;
@@ -11,11 +10,18 @@ import one.platform.plugin.handle.LocalRequestHandler;
 import one.platform.plugin.handle.NotesMessageRouterHandler;
 import one.platform.plugin.manager.NotePanelManager;
 import org.apache.commons.compress.utils.IOUtils;
+import org.cef.browser.CefBrowser;
+import org.cef.browser.CefFrame;
 import org.cef.browser.CefMessageRouter;
+import org.cef.handler.CefLifeSpanHandler;
+import org.cef.handler.CefLifeSpanHandlerAdapter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -87,6 +93,21 @@ public class JcefNoteEditorPanel {
         jbCefBrowser = new JBCefBrowser();
         jbCefClient = jbCefBrowser.getJBCefClient();
         jbCefClient.addRequestHandler(new LocalRequestHandler(), jbCefBrowser.getCefBrowser());
+        jbCefClient.addLifeSpanHandler(new CefLifeSpanHandlerAdapter(){
+            public boolean onBeforePopup(CefBrowser browser, CefFrame frame, String targetUrl, String targetFrameName) {
+                if(targetUrl.startsWith(Constants.LOCALHOST)) {
+                    return false;
+                }else {
+                    try {
+                        Desktop.getDesktop().browse(new URI(targetUrl));
+                    } catch (Exception e) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+        }, jbCefBrowser.getCefBrowser());;
+//        jbCefBrowser.setOpenLinksInExternalBrowser(true);
 
         CefMessageRouter.CefMessageRouterConfig config = new CefMessageRouter.CefMessageRouterConfig();
         config.jsQueryFunction = "noteQuery";// 定义方法
@@ -94,16 +115,6 @@ public class JcefNoteEditorPanel {
         final CefMessageRouter cefMessageRouter = CefMessageRouter.create(config);
         cefMessageRouter.addHandler(new NotesMessageRouterHandler(),true);
         jbCefClient.getCefClient().addMessageRouter(cefMessageRouter);
-//        CefBrowser devTools = jbCefBrowser.getCefBrowser().getDevTools();
-//        JBCefBrowser devToolsBrowser = JBCefBrowser.createBuilder()
-//                .setCefBrowser(devTools)
-//                .setCreateImmediately(true)
-//                .setMouseWheelEventEnable(true)
-//                .setEnableOpenDevToolsMenuItem(true)
-//                .setOffScreenRendering(true)
-//                .setClient(jbCefBrowser.getJBCefClient())
-//                .build();
-
         return jbCefBrowser.getComponent();
     }
 

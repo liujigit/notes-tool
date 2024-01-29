@@ -21,7 +21,7 @@
     <script src="https://unpkg.com/vditor@3.9.8/dist/index.min.js"></script>
 </head>
 <body>
-<div id="vditor"></div>
+<div id="vditor"  class="vditor--fullscreen"></div>
 <script>
     let themeMap = {
         'dark': ['dark', 'dark', 'native'],
@@ -30,11 +30,11 @@
     let toolbar = [
         {
             name:'emoji',
-            tipPosition: 'se',
+            tipPosition: 'e',
         },
         {
             name:'headings',
-            tipPosition: 'se',
+            tipPosition: 'e',
         },
         {
             name:'bold',
@@ -197,7 +197,7 @@
             pin: true, //固定工具栏
         },
         counter: {
-            enable: true,
+            enable: false,
             type: 'markdown',
         },
         tab: '\t',

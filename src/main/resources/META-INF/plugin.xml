@@ -15,23 +15,29 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
         idea plug-in -- NOTE <br>
-        Add and delete tab pages. Save data <br>
+        1, basic functions: support to add, delete tab page, modify note page name; Automatic data saving <br>
+        2, plug-in configuration: support theme, language Settings <br>
+        3, note content support: expression, six headings, bold, italic, stripline, unordered list, ordered list, task list, list reverse indent, list indent, reference, dividing line, code block, line code block, table, withdraw
+        4, highlights: support stickers (copy pictures into the note page)
         <br>
         Future support: <br>
         ①, more friendly interaction <br>
         ②, fixed desktop <br>
         ③, support internationalization <br>
-        ④, subject department system changes <br>
+        ④, the theme can follow the system change <br>
         ⑤,... <br>
 
         idea 插件 -- 日记本<br>
-        支持增加、删除tab页；保存数据<br>
+        1、基础功能：支持增加、删除tab页、修改note页名称；自动保存数据<br>
+        2、插件配置：支持主题、语言设置<br>
+        3、note内容支持：表情、六级标题、粗体、斜体、删除线、无序列表、有序列表、任务列表、列表反向缩进、列表缩进、引用、分割线、代码块、行代码块、表格、撤回
+        4、亮点：支持贴图（复制图片放到note页面内）
         <br>
         未来支持：<br>
             ①、交互更加友好<br>
             ②、固定桌面<br>
             ③、支持国际化<br>
-            ④、主题科所系统变化<br>
+            ④、主题可以跟随系统变化<br>
             ⑤、...<br>
   ]]></description>
 
