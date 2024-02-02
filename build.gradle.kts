@@ -43,7 +43,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("202")
-        untilBuild.set("231.*")
+        untilBuild.set("241.*")
     }
 
     signPlugin {
@@ -53,6 +53,7 @@ tasks {
     }
 
     publishPlugin {
+        // perm:YWFfYmIueG9xaw==.OTItOTUzMw==.gSqkCDDrcL9OIOJpk1YcWP3eSpLp4d
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
