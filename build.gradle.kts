@@ -53,7 +53,6 @@ tasks {
     }
 
     publishPlugin {
-        // perm:YWFfYmIueG9xaw==.OTItOTUzMw==.gSqkCDDrcL9OIOJpk1YcWP3eSpLp4d
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
