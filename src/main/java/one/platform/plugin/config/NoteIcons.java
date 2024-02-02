@@ -1,7 +1,7 @@
 package one.platform.plugin.config;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.ui.IconManager;
+import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
 
@@ -46,6 +46,6 @@ public class NoteIcons {
     public static final Icon SLIDERS = AllIcons.General.Add;
 
     public static Icon loadIcon(String path){
-        return IconManager.getInstance().getIcon(path,NoteIcons.class);
+        return IconLoader.getIcon(path,NoteIcons.class);
     }
 }
