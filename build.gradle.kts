@@ -47,12 +47,12 @@ tasks {
     }
 
     signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+        certificateChain.set(File("F:/notetool-crt/chain.crt").readText())
+        privateKey.set(File("F:/notetool-crt/private.pem").readText())
+        password.set(File("F:/notetool-crt/password").readText())
     }
 
     publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
+        token.set(File("F:/notetool-crt/publish-token").readText())
     }
 }
